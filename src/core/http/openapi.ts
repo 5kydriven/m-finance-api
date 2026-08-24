@@ -138,9 +138,10 @@ export function registerOpenApi(app: OpenAPIHono<AppEnv>) {
 			...app.getOpenAPI31Document({
 				openapi: '3.1.0',
 				info: {
-					title: 'Sport API',
+					title: 'Mhel Finance API',
 					version: '1.0.0',
-					description: 'Reference implementation.',
+					description:
+						'Backend API for automated personal finance ingestion and ledger workflows.',
 				},
 				// Derived from the incoming request so "Try it" targets the host you
 				// are actually on — localhost in dev, the real origin in production.

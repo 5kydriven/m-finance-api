@@ -10,7 +10,9 @@
     "db:studio": "bun drizzle-kit studio",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src",
-    "check": "bun run typecheck && bun run lint"
+    "check:architecture": "eslint src --max-warnings=0",
+    "check": "bun run typecheck && bun run check:architecture",
+    "deploy:dry-run": "wrangler deploy --dry-run --env=\"\" --outdir tmp/worker-dry-run"
   },
   "dependencies": {
     "@better-auth/drizzle-adapter": "^1.6.25",
