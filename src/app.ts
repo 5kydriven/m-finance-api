@@ -54,7 +54,7 @@ app.get(
 		const nonce = c.get('secureHeadersNonce');
 		return {
 			url: '/openapi.json',
-			pageTitle: 'Sport API',
+			pageTitle: 'Mhel Finance API',
 			...(nonce ? { nonce } : {}),
 		};
 	}),
