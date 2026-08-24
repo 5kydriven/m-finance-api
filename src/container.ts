@@ -3,6 +3,8 @@ import { createLogger } from '@/core/logger';
 // import { makeApiKeyService } from '@/auth/api-key.service';
 import { makeUserRepository } from '@/modules/user/user.repository';
 import { makeUserService } from '@/modules/user/user.service';
+import { makeAccountRepository } from '@/modules/account/account.repository';
+import { makeAccountService } from '@/modules/account/account.service';
 // import { makePostRepository } from '@/modules/post/post.repository';
 // import { makePostService } from '@/modules/post/post.service';
 import { createDb } from '@/db/client';
@@ -24,6 +26,7 @@ export function createContainer(raw: RawBindings, ctx: ContainerContext) {
 	const auth = createAuth(env, db);
 	// 3. Repositories — depend only on `db`
 	const userRepo = makeUserRepository(db);
+	const accountRepo = makeAccountRepository(db);
 	// const postRepo = makePostRepository(db);
 	// const apiKeyRepo = makeApiKeyRepository(db);
 	// 4. Services — depend on repositories and each other
@@ -32,6 +35,7 @@ export function createContainer(raw: RawBindings, ctx: ContainerContext) {
 	// 	pepper: env.API_KEY_PEPPER,
 	// });
 	const userService = makeUserService({ userRepo });
+	const accountService = makeAccountService({ accountRepo });
 	// const postService = makePostService({
 	// 	postRepo,
 	// 	userService, // ← service→service, never service→foreign repo
@@ -48,6 +52,7 @@ export function createContainer(raw: RawBindings, ctx: ContainerContext) {
 		// },
 		services: {
 			user: userService,
+			account: accountService,
 			// post: postService,
 			// apiKey: apiKeyService,
 		},

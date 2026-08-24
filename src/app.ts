@@ -6,6 +6,7 @@ import { accessLog } from '@/core/middleware/logger';
 import { containerMiddleware } from '@/core/middleware/container';
 import { errorHandler, notFoundHandler } from '@/core/middleware/error-handler';
 import { authRouter } from '@/auth/routes';
+import { accountRoutes } from '@/modules/account';
 import { userRoutes } from '@/modules/user';
 import { corsMiddleware } from '@/core/middleware/cors';
 import {
@@ -36,6 +37,7 @@ app.route('/api/auth', authRouter);
 // that is defined but never mounted is invisible to both the router and the
 // docs. Path is `/users` inside userRoutes, so this serves /v1/users.
 app.route('/v1', userRoutes);
+app.route('/v1', accountRoutes);
 
 // ── Documentation ──
 registerOpenApi(app);
