@@ -14,6 +14,10 @@ export const EnvSchema = z.object({
 	// --- vars (wrangler.toml [vars]) ---
 	ENVIRONMENT: z.enum(['development', 'preview', 'production']),
 	BETTER_AUTH_URL: z.url(),
+	PUBLIC_SIGN_UP_ENABLED: z
+		.enum(['true', 'false'])
+		.default('false')
+		.transform((value) => value === 'true'),
 	LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']).default('info'),
 	CORS_ORIGINS: z
 		.string()

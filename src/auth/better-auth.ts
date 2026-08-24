@@ -22,6 +22,7 @@ export function createAuth(env: Env, db: Database) {
 		trustedOrigins: env.CORS_ORIGINS,
 		emailAndPassword: {
 			enabled: true,
+			disableSignUp: !env.PUBLIC_SIGN_UP_ENABLED,
 			requireEmailVerification: env.ENVIRONMENT === 'production',
 			minPasswordLength: 12,
 		},
