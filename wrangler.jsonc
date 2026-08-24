@@ -8,6 +8,15 @@
 	"dev": {
 		"port": 3000,
 	},
+	// Non-secret production variables. Secrets still come from Cloudflare
+	// Worker secrets or dashboard-managed variables because keep_vars is true.
+	"vars": {
+		"ENVIRONMENT": "production",
+		"BETTER_AUTH_URL": "https://m-finance-api.tagpuno619.workers.dev",
+		"PUBLIC_SIGN_UP_ENABLED": "false",
+		"LOG_LEVEL": "info",
+		"CORS_ORIGINS": "https://m-finance-api.tagpuno619.workers.dev,http://localhost:3000",
+	},
 	"observability": {
 		"enabled": true,
 		"head_sampling_rate": 1,

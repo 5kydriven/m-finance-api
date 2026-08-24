@@ -23,11 +23,14 @@ app.notFound(notFoundHandler);
 // this middleware writes its headers on the way back out — so if it ran here it
 // would overwrite the docs-specific policy set further down the chain.
 app.use('*', except('/docs', securityHeaders));
+// /health is Worker liveness only. Keep it independent from application
+// secrets and database/auth construction so deploy smoke checks can isolate
+// runtime availability from deeper dependency readiness.
+app.get('/health', (c) => c.json({ ok: true, ts: Date.now() }));
 app.use('*', corsMiddleware());
 app.use('*', containerMiddleware);
 app.use('*', accessLog);
 // ── Unauthenticated ──
-app.get('/health', (c) => c.json({ ok: true, ts: Date.now() }));
 app.route('/api/auth', authRouter);
 
 // ── Versioned API. Auth is applied per-route, not globally,
