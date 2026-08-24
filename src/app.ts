@@ -26,6 +26,7 @@ app.use('*', except('/docs', securityHeaders));
 // /health is Worker liveness only. Keep it independent from application
 // secrets and database/auth construction so deploy smoke checks can isolate
 // runtime availability from deeper dependency readiness.
+app.get('/', (c) => c.text('Server is running!'));
 app.get('/health', (c) => c.json({ ok: true, ts: Date.now() }));
 app.use('*', corsMiddleware());
 app.use('*', containerMiddleware);
