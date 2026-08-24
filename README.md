@@ -31,10 +31,13 @@ deploy the Worker to Cloudflare. Configure these GitHub repository secrets:
 CLOUDFLARE_ACCOUNT_ID
 CLOUDFLARE_API_TOKEN
 DATABASE_URL
+BETTER_AUTH_SECRET
 ```
 
-Keep application runtime secrets such as `BETTER_AUTH_SECRET` in Cloudflare
-Worker secrets or dashboard-managed variables.
+The deployment workflow synchronizes `DATABASE_URL` and `BETTER_AUTH_SECRET`
+from GitHub secrets into encrypted Cloudflare Worker secrets. Wrangler also
+declares both as required, so deployment fails before serving traffic if either
+one is missing. After deployment, the workflow verifies `/health` and `/docs`.
 
 [For generating/synchronizing types based on your Worker configuration run](https://developers.cloudflare.com/workers/wrangler/commands/#types):
 

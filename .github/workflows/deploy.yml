@@ -56,3 +56,16 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: deploy --minify --env=""
+          secrets: |
+            DATABASE_URL
+            BETTER_AUTH_SECRET
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
+
+      - name: Verify production endpoints
+        env:
+          WORKER_URL: https://m-finance-api.tagpuno619.workers.dev
+        run: |
+          curl --fail --silent --show-error --retry 5 --retry-all-errors --retry-delay 5 "$WORKER_URL/health"
+          curl --fail --silent --show-error --retry 5 --retry-all-errors --retry-delay 5 "$WORKER_URL/docs" > /dev/null

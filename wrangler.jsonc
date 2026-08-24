@@ -8,8 +8,11 @@
 	"dev": {
 		"port": 3000,
 	},
+	"secrets": {
+		"required": ["DATABASE_URL", "BETTER_AUTH_SECRET"],
+	},
 	// Non-secret production variables. Secrets still come from Cloudflare
-	// Worker secrets or dashboard-managed variables because keep_vars is true.
+	// Worker secrets, synchronized by the deployment workflow.
 	"vars": {
 		"ENVIRONMENT": "production",
 		"BETTER_AUTH_URL": "https://m-finance-api.tagpuno619.workers.dev",
@@ -45,6 +48,9 @@
 	"env": {
 		"staging": {
 			"name": "m-finance-api-staging",
+			"secrets": {
+				"required": ["DATABASE_URL", "BETTER_AUTH_SECRET"],
+			},
 			// Keys must match EnvSchema in src/env.ts exactly. `ENVIRONMENT`
 			// is the name the schema validates; "staging" is not one of its
 			// accepted values, so preview is the correct tier here.
